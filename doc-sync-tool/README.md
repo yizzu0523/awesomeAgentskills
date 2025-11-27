@@ -16,7 +16,8 @@
 无需额外依赖，只需要 Node.js 14+ 环境。
 
 ```bash
-cd /Users/ben/Downloads/go\ to\ wild/auto-website-system/_skills/doc-sync-tool
+# 克隆或下载工具到你的项目
+cd path/to/doc-sync-tool
 chmod +x sync.js watch.js
 ```
 
@@ -27,28 +28,28 @@ chmod +x sync.js watch.js
 在项目根目录执行：
 
 ```bash
-node /Users/ben/Downloads/go\ to\ wild/auto-website-system/_skills/doc-sync-tool/sync.js
+node path/to/doc-sync-tool/sync.js
 ```
 
 或者使用相对路径：
 
 ```bash
-cd /Users/ben/Downloads/go\ to\ wild
-node auto-website-system/_skills/doc-sync-tool/sync.js
+cd your-project-root
+node doc-sync-tool/sync.js
 ```
 
 输出示例：
 ```
 🚀 开始扫描文档...
-📂 扫描路径: /Users/ben/Downloads/go to wild
-📋 目标文件: Agents.md, claude.md, gemini.md
+📂 扫描路径: /path/to/your-project
+📋 目标文件: AGENTS.md, CLAUDE.md, GEMINI.md
 
 ✓ 找到 3 个目录包含目标文件
 
-📁 处理目录: /Users/ben/Downloads/go to wild/websites/example
-   📄 源文件: claude.md (2025-11-27 10:30:45)
-   ✨ 创建: Agents.md
-   ✨ 创建: gemini.md
+📁 处理目录: /path/to/your-project/websites/example
+   📄 源文件: CLAUDE.md (2025-11-27 10:30:45)
+   ✨ 创建: AGENTS.md
+   ✨ 创建: GEMINI.md
    🎉 成功同步 2 个文件
 
 ============================================================
@@ -64,7 +65,7 @@ node auto-website-system/_skills/doc-sync-tool/sync.js
 启动监听服务：
 
 ```bash
-node /Users/ben/Downloads/go\ to\ wild/auto-website-system/_skills/doc-sync-tool/watch.js
+node path/to/doc-sync-tool/watch.js
 ```
 
 输出示例：
@@ -75,16 +76,16 @@ node /Users/ben/Downloads/go\ to\ wild/auto-website-system/_skills/doc-sync-tool
 
 ============================================================
 👀 文件监听已启动！
-📂 监听目录: /Users/ben/Downloads/go to wild
-📋 目标文件: Agents.md, claude.md, gemini.md
-🗂️  监听中的目录: 145 个
+📂 监听目录: /path/to/your-project
+📋 目标文件: AGENTS.md, CLAUDE.md, GEMINI.md
+🗂️  监听中的目录: 1 个
 💡 按 Ctrl+C 停止监听
 ============================================================
 
-[10:35:20] 📝 检测到文件变化: /path/to/claude.md
+[10:35:20] 📝 检测到文件变化: /path/to/CLAUDE.md
 [10:35:20] 📁 处理目录: /path/to
-[10:35:20]    📄 源文件: claude.md
-[10:35:20]    ✅ 更新: Agents.md
+[10:35:20]    📄 源文件: CLAUDE.md
+[10:35:20]    ✅ 更新: AGENTS.md
 [10:35:20]    🎉 成功同步 1 个文件
 ```
 
@@ -99,7 +100,7 @@ node /Users/ben/Downloads/go\ to\ wild/auto-website-system/_skills/doc-sync-tool
 npm install -g pm2
 
 # 启动服务
-pm2 start /Users/ben/Downloads/go\ to\ wild/auto-website-system/_skills/doc-sync-tool/watch.js --name doc-sync
+pm2 start path/to/doc-sync-tool/watch.js --name doc-sync --cwd /path/to/your-project
 
 # 查看状态
 pm2 status
@@ -125,7 +126,7 @@ pm2 save
 ```javascript
 const CONFIG = {
   // 要同步的文件名列表
-  targetFiles: ['Agents.md', 'claude.md', 'gemini.md'],
+  targetFiles: ['AGENTS.md', 'CLAUDE.md', 'GEMINI.md'],
 
   // 扫描的根目录（默认为当前工作目录）
   scanPath: process.cwd(),
@@ -162,19 +163,19 @@ const CONFIG = {
 
 ### 场景 1: 新建项目
 
-在项目中创建 `claude.md`，工具会自动创建 `Agents.md` 和 `gemini.md`。
+在项目中创建 `CLAUDE.md`，工具会自动创建 `AGENTS.md` 和 `GEMINI.md`。
 
 ### 场景 2: 更新配置
 
-修改任意一个文件（如 `claude.md`），其他两个文件会自动同步更新。
+修改任意一个文件（如 `CLAUDE.md`），其他两个文件会自动同步更新。
 
 ### 场景 3: 批量同步
 
 对多个项目的文档进行手动同步：
 
 ```bash
-cd /Users/ben/Downloads/go\ to\ wild
-node auto-website-system/_skills/doc-sync-tool/sync.js
+cd your-project-root
+node doc-sync-tool/sync.js
 ```
 
 ## ⚠️ 注意事项
@@ -199,7 +200,7 @@ chmod +x sync.js watch.js
 
 ```bash
 pwd  # 查看当前目录
-ls -la auto-website-system/_skills/doc-sync-tool/  # 确认文件存在
+ls -la doc-sync-tool/  # 确认文件存在
 ```
 
 ### 问题：Node.js 版本过低
@@ -227,7 +228,7 @@ node --version  # 查看版本（需要 14+）
 
 ```bash
 #!/bin/bash
-node /Users/ben/Downloads/go\ to\ wild/auto-website-system/_skills/doc-sync-tool/sync.js
+node path/to/doc-sync-tool/sync.js
 ```
 
 ### 与 CI/CD 集成
@@ -237,7 +238,7 @@ node /Users/ben/Downloads/go\ to\ wild/auto-website-system/_skills/doc-sync-tool
 ```yaml
 - name: Sync Doc Files
   run: |
-    node auto-website-system/_skills/doc-sync-tool/sync.js
+    node doc-sync-tool/sync.js
     git add -A
     git commit -m "chore: sync agent docs" || true
 ```
